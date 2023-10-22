@@ -205,14 +205,14 @@ int compareBigNum(vector<int> arrBit1, vector<int> arrBit2)
 Tim s va r trong:
 n - 1 = ( 2 ^ s ) * r. Voi r la 1 so le.
 
-Input:	1 vector ( chuoi Binary ) ( arrBit ), 1 so nguyen ( s )
+Input:	1 vector ( chuoi Binary ) ( arrBitN ), 1 so nguyen ( s )
 		, 1 vector ( chuoi Binary ) ( arrBitR ).
 Output:	Ket qua khong tra truc tiep ve ma thong qua 2 bien ( s ) va ( arrBitR ).
 */
-void findSandR(vector<int> arrBit, int& s, vector<int>& arrBitR)
+void findSandR(vector<int> arrBitN, int& s, vector<int>& arrBitR)
 {
 	s = 0;
-	vector<int> tempArrBit = arrBit;
+	vector<int> tempArrBit = arrBitN;
 	tempArrBit[0] = 0;
 	while (tempArrBit[0] == 0) 
 	{
@@ -261,21 +261,22 @@ Output:	1 vector ( chuoi Binary ).
 vector<int> mulBigNum(vector<int> arrBit1, vector<int> arrBit2)
 {
 	vector<int> arrBitResult;
-	vector<int> tempArrBit2 = Bit2;
-	if (compareBigNum(tempArrBit2,arrBit1)==0)
+	vector<int>	tempArrBit2 = arrBit2;
+
+	if (compareBigNum(Bit2,arrBit1)==0)
 	{
 		arrBit2.insert(arrBit2.begin(), 0);
 		return arrBit2;
 	}
 	else
 	{
-		if (compareBigNum(tempArrBit2, arrBit2) == 0)
+		if (compareBigNum(Bit2, arrBit2) == 0)
 		{
 			arrBit1.insert(arrBit1.begin(), 0);
 			return arrBit1;
 		}
 	}
-	tempArrBit2 = arrBit2;
+
 	for (int i = 0; i < arrBit1.size(); i++)
 	{
 		if (i != 0)
@@ -286,15 +287,6 @@ vector<int> mulBigNum(vector<int> arrBit1, vector<int> arrBit2)
 		{
 			arrBitResult = addBigNum(arrBitResult, tempArrBit2);
 		}
-		/*if (arrBit1[i] == 1)
-		{
-			for (int j = 0; j < i; j++)
-			{
-				tempArrBit2.insert(tempArrBit2.begin(), 0);
-			}
-			arrBitResult = addBigNum(arrBitResult, tempArrBit2);
-			tempArrBit2 = arrBit2;
-		}*/
 	}
 	return arrBitResult;
 }
@@ -358,21 +350,21 @@ void divBigNum(vector<int> arrBit1, vector<int> arrBit2
 	if (compareBigNum(tempArrBit1, tempArrBit2) == -1)
 	{
 		arrBit3 = Bit0;
-		arrBit4 = arrBit1;
+		arrBit4 = tempArrBit1;
 		return;
 	}
 	if (compareBigNum(arrBit2, Bit2) == 0)
 	{
 		if (tempArrBit1[0] == 0)
 		{
-			tempArrBit1.erase(arrBit2.begin());
+			tempArrBit1.erase(tempArrBit1.begin());
 			arrBit3 = tempArrBit1;
 			arrBit4 = Bit0;
 			return;
 		}
 		else
 		{
-			tempArrBit1.erase(arrBit2.begin());
+			tempArrBit1.erase(tempArrBit1.begin());
 			arrBit3 = tempArrBit1;
 			arrBit4 = Bit1;
 			return;
@@ -440,26 +432,30 @@ Output:	Ket qua khong tra truc tiep ve ma thong qua bien ( arrBitY ).
 void iterativeSquaring(vector<int> arrBitA, vector<int> arrBitN
 	, vector<int> arrBitR, vector<int>& arrBitY)
 {
-	vector<int> tempArrBitA = arrBitA;
+	vector<int> tempArrBitA;
 	vector<int> tempArrBitB;
-	vector<int> tempArrBit = Bit0;
-	if (compareBigNum(tempArrBitA, tempArrBit) == 0)
+	vector<int> tempArrBit;
+	if (compareBigNum(arrBitA, Bit0) == 0 || compareBigNum(arrBitA, arrBitR) == 0)
 	{
-		arrBitY = tempArrBit; return;
+		arrBitY = Bit0; return;
 	}
-	if (compareBigNum(arrBitR, tempArrBit) == 0)
+	if (compareBigNum(arrBitR, Bit0) == 0)
 	{
 		arrBitY = Bit1; return;
 	}
+
+	tempArrBitA = arrBitA;
 	tempArrBitB.push_back(1);
+
 	if (arrBitR[0] == 1) tempArrBitB = arrBitA;
+
 	for (int i = 1; i < arrBitR.size(); i++)
 	{
-		divBigNum(mulBigNum(tempArrBitA, tempArrBitA)
-			, arrBitN, tempArrBit, tempArrBitA);
+		divBigNum(mulBigNum(tempArrBitA, tempArrBitA), arrBitN, tempArrBit, tempArrBitA);
 		if (arrBitR[i] == 1 && i != 0)
 			divBigNum(mulBigNum(tempArrBitA, tempArrBitB), arrBitN, tempArrBit, tempArrBitB);
 	}
+
 	while (tempArrBitB[tempArrBitB.size() - 1] == 0 && tempArrBitB.size() > 1)
 	{
 		tempArrBitB.pop_back();
@@ -513,30 +509,14 @@ bool millerRabin(vector<int> arrBitN, int t)
 
 int main()
 {
-	/*vector<int> arrBit1 = convertHexToBinary("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
-	vector<int> arrBit2 = convertHexToBinary("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
-	vector<int> arrBit3;
-	vector<int> arrBit4;
-	vector<int> arrBit5; 
-	int i=0;
-	while (i<arrBit2.size())
-	{
-		arrBit1 = mulBigNum(arrBit1, arrBit1);
-		i++;
-	}
-	i++;
-	divBigNum(arrBit1, arrBit2, arrBit3, arrBit4);
-	arrBit1 = arrBit2;
-	i++;
-	iterativeSquaring(arrBit1, arrBit2, arrBit2, arrBit3);
-	i++;*/
 	string strHex;
 	vector<int> arrBit;
 	int time = 1;
 	ifstream in;
-	in.open("test_19.inp");
+	in.open("test.inp");
 	ofstream out;
-	out.open("test_19.out");
+	out.open("test.out");
+
 	in >> strHex;
 	arrBit = convertHexToBinary(strHex);
 	if (isNumber2or3(strHex) == 1)
@@ -547,8 +527,10 @@ int main()
 	{
 		out << 0; return 0;
 	}
+
 	if (arrBit.size() <= 128) time = 10;
-	else if (arrBit.size() <= 256) time = 5;
+	else if (arrBit.size() <= 256) time = 10;
+	else if (arrBit.size() <= 348) time = 3;
 	else time = 2;
 
 	if (millerRabin(arrBit, time))
@@ -559,6 +541,5 @@ int main()
 	{
 		out << 0; return 0;
 	}
-	time++;
 	return 0;
 }
