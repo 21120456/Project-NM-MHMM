@@ -744,11 +744,14 @@ int main()
 	vector<int> arrBitK;
 	vector<int> arrBitX;
 	vector<int> arrBitY;
+
 	string nameFile = "test";
+
 	ifstream in;
 	in.open(nameFile + ".inp");
 	ofstream out;
 	out.open(nameFile + ".out");
+
 	in >> strHex;
 	arrBitN = convertHexToBinary(strHex);
 

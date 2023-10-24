@@ -746,11 +746,14 @@ int main()
 	vector<int> arrBitTotativesOfN;
 	vector<int> arrBitD;
 	vector<int> arrBit5;
+
 	string nameFile = "test";
+
 	ifstream in;
 	in.open(nameFile + ".inp");
 	ofstream out;
 	out.open(nameFile + ".out");
+
 	in >> strHex;
 	arrBitP = convertHexToBinary(strHex);
 	
@@ -773,7 +776,6 @@ int main()
 		out << "-1";
 		return 0;
 	}
-
 
 	return 0;
 }

@@ -511,8 +511,10 @@ int main()
 {
 	string strHex;
 	vector<int> arrBit;
-	int time = 1;	
+	int time = 1;
+
 	string nameFile = "test";
+
 	ifstream in;
 	in.open(nameFile + ".inp");
 	ofstream out;
@@ -542,5 +544,6 @@ int main()
 	{
 		out << 0; return 0;
 	}
+
 	return 0;
 }
