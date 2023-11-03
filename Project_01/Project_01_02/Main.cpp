@@ -474,7 +474,7 @@ vector<int> genArrBit(vector<int>& arrBit1, vector<int>& arrBit2)
 
 /*
 Nhan binh phuong co lap:
-	y = ( a ^ r ) mod n.
+	y = ( a ^ r ) mod n. Voi a < n
 Input:	1 vector ( chuoi Binary ) ( arrBitA ), 1 vector ( chuoi Binary ) ( arrBitN )
 		, 1 vector ( chuoi Binary ) ( arrBitR ), 1 vector ( chuoi Binary ) ( arrBitY ).
 Output:	Ket qua khong tra truc tiep ve ma thong qua bien ( arrBitY ).
@@ -587,7 +587,7 @@ Input:	1 vector ( chuoi Binary ) ( arrBitA ), 1 vector ( chuoi Binary ) ( arrBit
 Output:	Ket qua khong tra truc tiep ve ma thong qua 2 bien ( arrBitC ) va ( arrBitD ).
 */
 void extendedEuclidean(vector<int> arrBitA, vector<int> arrBitB
-	, vector<int>& arrBitC, vector<int>& arrBitD) 
+	, vector<int>& arrBitC, vector<int>& arrBitD)
 {
 	vector<int> tempArrBit1;
 	vector<int> tempArrBit2;
@@ -634,9 +634,9 @@ void extendedEuclidean(vector<int> arrBitA, vector<int> arrBitB
 		tempArrBit1 = mulBigNum(table[i][1], table[i - 1][2]);
 		tempArrBit2 = mulBigNum(table[i][1], table[i - 1][3]);
 
-		if (compareBigNum(table[i - 2][4], Bit1) == 0 && compareBigNum(table[i - 1][4], Bit1) == 0) 
+		if (compareBigNum(table[i - 2][4], Bit1) == 0 && compareBigNum(table[i - 1][4], Bit1) == 0)
 		{
-			if (compareBigNum(table[i - 2][2],tempArrBit1) == -1)
+			if (compareBigNum(table[i - 2][2], tempArrBit1) == -1)
 			{
 				table[i][2] = subBigNum(tempArrBit1, table[i - 2][2]);
 				table[i][4] = Bit0;
@@ -652,7 +652,7 @@ void extendedEuclidean(vector<int> arrBitA, vector<int> arrBitB
 			{
 				table[i][2] = addBigNum(table[i - 2][2], tempArrBit1);
 			}
-			else 
+			else
 			{
 				if (compareBigNum(table[i - 2][4], Bit0) == 0 && compareBigNum(table[i - 1][4], Bit1) == 0)
 				{
@@ -713,7 +713,10 @@ void extendedEuclidean(vector<int> arrBitA, vector<int> arrBitB
 				}
 			}
 		}
+	}
 
+	for (int i = 0; i < table.size(); i++)
+	{
 		if (compareBigNum(table[i][0], Bit1) == 0)
 		{
 			if (compareBigNum(table[i][4], Bit1) == 0)
@@ -747,7 +750,7 @@ int main()
 	vector<int> arrBitD;
 	vector<int> arrBit5;
 
-	string nameFile = "test";
+	string nameFile = "test_01";
 
 	ifstream in;
 	in.open(nameFile + ".inp");
@@ -773,7 +776,7 @@ int main()
 	}
 	else
 	{
-		out << "-1";
+		out << -1;
 		return 0;
 	}
 

@@ -424,7 +424,7 @@ vector<int> genArrBit(vector<int>& arrBit1, vector<int>& arrBit2)
 
 /*
 Nhan binh phuong co lap:
-	y = ( a ^ r ) mod n.
+	y = ( a ^ r ) mod n. Voi a < n
 Input:	1 vector ( chuoi Binary ) ( arrBitA ), 1 vector ( chuoi Binary ) ( arrBitN )
 		, 1 vector ( chuoi Binary ) ( arrBitR ), 1 vector ( chuoi Binary ) ( arrBitY ).
 Output:	Ket qua khong tra truc tiep ve ma thong qua bien ( arrBitY ).
