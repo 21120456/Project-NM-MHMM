@@ -750,7 +750,7 @@ int main()
 	vector<int> arrBitD;
 	vector<int> arrBit5;
 
-	string nameFile = "test_01";
+	string nameFile = "test";
 
 	ifstream in;
 	in.open(nameFile + ".inp");
