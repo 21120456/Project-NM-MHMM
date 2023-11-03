@@ -474,7 +474,7 @@ vector<int> genArrBit(vector<int>& arrBit1, vector<int>& arrBit2)
 
 /*
 Nhan binh phuong co lap:
-	y = ( a ^ r ) mod n.
+	y = ( a ^ r ) mod n. Voi a < n
 Input:	1 vector ( chuoi Binary ) ( arrBitA ), 1 vector ( chuoi Binary ) ( arrBitN )
 		, 1 vector ( chuoi Binary ) ( arrBitR ), 1 vector ( chuoi Binary ) ( arrBitY ).
 Output:	Ket qua khong tra truc tiep ve ma thong qua bien ( arrBitY ).
@@ -713,7 +713,10 @@ void extendedEuclidean(vector<int> arrBitA, vector<int> arrBitB
 				}
 			}
 		}
+	}
 
+	for (int i = 0; i < table.size(); i++)
+	{
 		if (compareBigNum(table[i][0], Bit1) == 0)
 		{
 			if (compareBigNum(table[i][4], Bit1) == 0)
